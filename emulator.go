@@ -4,8 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"os/exec"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -13,6 +14,18 @@ import (
 const (
 	Enter = "Enter"
 	Tab   = "Tab"
+	F1    = "PF(1)"
+	F2    = "PF(2)"
+	F3    = "PF(3)"
+	F4    = "PF(4)"
+	F5    = "PF(5)"
+	F6    = "PF(6)"
+	F7    = "PF(7)"
+	F8    = "PF(8)"
+	F9    = "PF(9)"
+	F10   = "PF(10)"
+	F11   = "PF(11)"
+	F12   = "PF(12)"
 )
 
 //Emulator base struct to x3270 terminal emulator
@@ -33,6 +46,32 @@ func (e *Emulator) moveCursor(x, y int) error {
 func (e *Emulator) SetString(value string) error {
 	command := fmt.Sprintf("String(%s)", value)
 	return e.execCommand(command)
+}
+
+//GetRows returns the number of rows in the saved screen image.
+func (e *Emulator) GetRows() (int, error) {
+	s, err := e.execCommandOutput("Snap(Rows)")
+	if err != nil {
+		return 0, err
+	}
+	i, err := strconv.Atoi(s)
+	if err != nil {
+		return 0, fmt.Errorf("error from x3270 to get numbers of row: %v", err)
+	}
+	return i, nil
+}
+
+//GetColumns returns the number of columns in the saved screen image.
+func (e *Emulator) GetColumns() (int, error) {
+	s, err := e.execCommandOutput("Snap(Cols)")
+	if err != nil {
+		return 0, err
+	}
+	i, err := strconv.Atoi(s)
+	if err != nil {
+		return 0, fmt.Errorf("error from x3270 to get numbers of columns: %v", err)
+	}
+	return i, nil
 }
 
 //FillString fill the field by your position
@@ -66,8 +105,8 @@ func (e *Emulator) validaKeyboard(key string) bool {
 
 //IsConnected check if a connection with host exist
 func (e *Emulator) IsConnected() bool {
-	_, err := e.query("ConnectionState")
-	if err != nil {
+	s, err := e.query("ConnectionState")
+	if err != nil || len(strings.TrimSpace(s)) == 0 {
 		return false
 	}
 	return true
@@ -97,6 +136,10 @@ func (e *Emulator) Connect() error {
 		e.ScriptPort = "5000"
 	}
 	e.createApp()
+	if !e.IsConnected() {
+		e.execCommand("quit")
+		log.Fatalf("error to connect in %s", e.hostname())
+	}
 	return nil
 }
 
@@ -108,6 +151,7 @@ func (e *Emulator) Disconnect() error {
 	return nil
 }
 
+//query returns state information from x3270
 func (e *Emulator) query(keyword string) (string, error) {
 	command := fmt.Sprintf("query(%s)", keyword)
 	return e.execCommandOutput(command)
@@ -132,9 +176,6 @@ func (e *Emulator) hostname() string {
 //execCommand executes a command on the connected x3270 instance
 func (e *Emulator) execCommand(command string) error {
 	cmd := exec.Command("x3270if", "-t", e.ScriptPort, command)
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		return err
 	}
