@@ -1,8 +1,8 @@
-# go3270 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+# go3270 ![Build Status](https://travis-ci.org/msalcantara/go3270.svg?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 go3270 is a Golang interface to 3270 terminal emulator.
 
 ## Requirements
-go3270 require x3270 executables in your PATH
+go3270 require  [x3270](http://x3270.bgp.nu/index.html) executables in your PATH
 
 ## Install
 ```$ go get github.com/msalcantara/go3270```
@@ -58,6 +58,6 @@ func main() {
 ```
 ## License
 
-This project is licensed under the [MIT][mit] license.
+go3270 is licensed under the [MIT][mit] license.
 
 [mit]: https://raw.githubusercontent.com/tebeka/selenium/master/LICENSE
