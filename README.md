@@ -1,4 +1,5 @@
-# go3270 ![Build Status](https://travis-ci.org/msalcantara/go3270.svg?branch=master) [![Release](https://img.shields.io/github/release/msalcantara/go3270.svg)](https://github.com/msalcantara/go3270/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+# go3270 ![Build Status](https://travis-ci.org/msalcantara/go3270.svg?branch=master) [![Release](https://img.shields.io/github/release/msalcantara/go3270.svg)](https://github.com/msalcantara/go3270/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![GoDoc](https://godoc.org/github.com/msalcantara/go3270?status.png)](https://godoc.org/github.com/msalcantara/go3270)
+
 go3270 is a Golang interface to 3270 terminal emulator.
 
 ## Requirements
