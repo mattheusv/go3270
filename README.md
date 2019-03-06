@@ -5,7 +5,7 @@ go3270 is a Golang interface to 3270 terminal emulator.
 ## Requirements
 - go3270 require  [x3270](http://x3270.bgp.nu/index.html) executables in your PATH
 
-- Go 1.10.x or greater
+- Go 1.11.x or greater
 
 ## Install
 ```$ go get github.com/msalcantara/go3270```
