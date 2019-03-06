@@ -9,7 +9,7 @@ go3270 require  [x3270](http://x3270.bgp.nu/index.html) executables in your PATH
 ```$ go get github.com/msalcantara/go3270```
 
 ## Example
-```
+```go
 package main
 
 import (
