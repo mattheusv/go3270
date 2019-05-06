@@ -7,6 +7,10 @@ go3270 is a Golang interface to 3270 terminal emulator.
 
 - Go 1.11.x or greater
 
+## x3270 support versions
+
+ - v3.3.14ga11
+
 ## Install
 ```$ go get github.com/msalcantara/go3270```
 
